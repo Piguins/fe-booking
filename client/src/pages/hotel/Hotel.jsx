@@ -151,3 +151,66 @@ const Hotel = () => {
                             </div>
                         </div>}
               </div>
+              </div>
+            <div className="htItem">
+              <div className="htWork">
+                <input type="checkbox"/>
+                <p>I'm traveling for work</p>
+                <FontAwesomeIcon icon={faQuestion} className='quesIcon'/>
+              </div>
+            </div>
+            <button className='htSearchBtn'>Search</button>
+          </div>
+          <div className="hotelContent">
+            <div className="hotelHeading">
+              <div>
+                <div className="hotelTitle">
+                  <span>Hotel</span>
+                  <h1>Vias Hotel Vung Tau</h1>
+                </div>
+                <div className="hotelLocation">
+                  <FontAwesomeIcon icon={faLocationDot} className='icon'/>
+                  <p className="hotelAddress">179 Thuy Van, Ward 8, Vung Tau, Vietnam</p>
+                  <span>-</span>
+                  <p className='showMap'>Great location - Show map</p>
+                </div>
+              </div>
+              <div className="hotelShare">
+                <FontAwesomeIcon icon={faHeart} className='heart'/>
+                <FontAwesomeIcon icon={faShareNodes} className='share' />
+                <button className="reserveBtn">Reserve</button>
+              </div>
+            </div>
+            <div className="hotelImg">
+              <div className="hotelImgTop">
+                <div className="img1">
+                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgTop' alt="" />
+                </div>
+                <div className="img2">
+                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgTop' alt="" />
+                </div>
+                <div className="img3">
+                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgTop' alt="" />
+                </div>
+              </div>
+              <div className='hotelImgBot'>
+                <div className="img4">
+                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgBot' alt="" />
+                </div>
+                <div className="img5">
+                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgBot' alt="" />
+                </div>
+                <div className="img6">
+                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgBot' alt="" />
+                </div>
+                <div className="img7">
+                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgBot' alt="" />
+                </div>
+                <div className="img8">
+                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgBot' alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
