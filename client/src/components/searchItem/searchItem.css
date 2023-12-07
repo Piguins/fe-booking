@@ -1,0 +1,177 @@
+.searchItem {
+    width: 100%;
+    height: 230px;
+    padding: 16px;
+
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+
+    margin-top: 20px;
+    z-index: -111;
+}
+
+.siImg {
+    flex: 1;
+    border-radius: 4px;
+    overflow: hidden;
+
+    position: relative;
+}
+
+.siAvt {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.siHeart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.siHeart:hover {
+    color: red;
+    cursor: pointer;
+}
+.siContent {
+    flex: 3;
+    display: flex;
+    align-items: center;
+}
+
+.siAbout {
+    flex: 3;
+    padding: 16px;
+    height: 230px;
+
+}
+
+.siName {
+    color: #0071c2;
+}
+
+.siAddress {
+    display: flex;
+    justify-content: space-between;
+}
+
+.siAddress span {
+    font-size: 12px;
+    color: #0071c2;
+    padding: 0 8px 0 0;
+    
+}
+
+.siDes {
+    border-left: 2px solid #ccc;
+    padding: 2px 8px;
+    margin-top: 12px;
+}
+
+.siDes .siRoom {
+    font-size: 12px;
+    font-weight: 600;
+    display: block;
+}
+
+.siDes .siBed {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.siDes .siCancel {
+    font-size: 12px;
+    font-weight: 600;   
+    color: #008009;
+    margin-top: 4px;
+}
+
+.siDes .siPromote {
+    font-size: 12px;
+    color: #008009;
+    font-weight: 300;
+
+}
+
+.siDes .siRemain {
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 4px;
+    color: #c00;
+
+
+}
+
+.siPrice {
+    flex: 1;
+    height: 230px;
+    padding: 16px 0;
+}
+
+.siRating {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+    margin-bottom: 50px;
+}
+
+.siRating p {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.siRating span {
+    font-size: 12px;
+}
+
+.siRating button {
+    margin-left: 12px;
+    background-color: #003580;
+    color: #fff;
+
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: none;
+
+}
+
+.siDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.siTotal {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.siTax {
+    font-size: 11px;
+    font-weight: 300;
+    margin-top: 8px;
+}
+
+.siAvailable {
+    padding: 8px 12px;
+    margin-top: 12px;
+    font-size: 15px;
+
+    color: #fff;
+    background-color: #0071c2;
+
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.siAvailable:hover {
+    background-color: #00487a;
+}
