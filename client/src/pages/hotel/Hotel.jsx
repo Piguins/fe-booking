@@ -214,3 +214,36 @@ const Hotel = () => {
           </div>
 
         </div>
+        <div className="hotelDesc">
+          <div className="htDetails">
+                <h2>Stay in the heart of Hiroshima</h2>
+                <p>You're eligible for a Genius discount at KOKO HOTEL Hiroshima Ekimae! To save at this property, all you have to do is sign in or register.
+                  Ideally set in the Hiroshima City Centre district of Hiroshima, KOKO HOTEL Hiroshima Ekimae is located a 5-minute walk from Myoei-ji Temple, half a kilometer from Chosho-in Temple and a 10-minute walk from Katō Tomosaburō Bronze Statue. With a restaurant, the 3-star hotel has air-conditioned rooms with free WiFi, each with a private bathroom. The property is 1.8 km from Atomic Bomb Dome and 1.8 km from Hiroshima Peace Memorial Park.<br/>
+                  All rooms in the hotel are equipped with a flat-screen TV and slippers.
+                  Guests at KOKO HOTEL Hiroshima Ekimae can enjoy an American or an Asian breakfast.<br/>
+                  Staff at the accommodation are available to give advice at the 24-hour front desk.<br/>
+                  Popular points of interest near KOKO HOTEL Hiroshima Ekimae include Hiroshima Danbara Shopping Centre, Hiroshima City Minami Ward Community Cultural Center and Hiroshima University Institute of Medical History. The nearest airport is Iwakuni Kintaikyo Airport, 33.8 km from the hotel.
+                  This is our guests' favorite part of Hiroshima, according to independent reviews.
+                  Couples in particular like the location – they rated it 8.8 for a two-person trip.
+                </p>
+                <span>KOKO HOTEL Hiroshima Ekimae has been welcoming Booking.com guests since Oct 20, 2020</span>
+          </div>
+          <div className="htHighlights">
+            <div className="box">
+              <h3>Property Highlights</h3>
+              <p>	Located in the heart of Hiroshima, this hotel has an excellent location score of 8.4</p>
+              <h4>Breakast info</h4>
+              <p>Asian, American</p>
+              <button>Reserve</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <MailList />
+      <div className="hotelContainer">
+        <Footer />
+      </div>
+    </div>
+  )
+}
