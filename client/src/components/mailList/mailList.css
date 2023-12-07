@@ -1,0 +1,65 @@
+.mailList {
+    background-color: #00224f;
+    width: 100%;    
+    
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 50px 0 30px;
+    
+}
+
+.mailList h2 {
+    color: #fff;
+    font-weight: 300;
+    font-size: 24px;
+}
+
+.mailList p {
+    color: #bdbdbd;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+.inputControl {
+    margin-top: 24px;
+    width: 530px;
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputControl .formInput {
+    flex: 1;
+    border-radius: 4px;
+    padding: 0 12px;
+    font-size: 18px;
+    font-weight: 300;
+    border: none;
+}
+
+.inputControl .submitBtn {
+    width: 160px;
+
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    margin-left: 4px;
+    
+    color: #fff;
+    background-color: #0071c2;
+}
+
+.info {
+    width: 530px;
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+}
+
+.info .infoDes {
+    margin: 0 0 0 8px;
+    font-size: 14px;
+    color: #fff;
+}
