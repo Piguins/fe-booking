@@ -1,0 +1,97 @@
+.promote {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1140px;
+}
+
+.promoteContainer {
+    width: 100% ;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 20px;
+
+    border-radius: 2px;
+
+
+}
+
+.promoteHaft {
+    display: flex;
+    width: 100%;
+    height: 270px;
+
+    gap: 20px;
+
+}
+
+.promoteItem {
+    flex: 1;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+
+
+}
+
+.promoteThird .promoteItem:nth-child(1) {
+    background: url("https://cf.bstatic.com/xdata/images/xphoto/720x405/161581069.webp?k=1d7540d15e1664ae3db1e54ff2ad78beb74e09100f6928decb68b4817ba81f8e&o=") no-repeat center center;
+    background-size: cover;
+}
+
+.promoteThird .promoteItem:nth-child(2) {
+    background: url("https://cf.bstatic.com/xdata/images/xphoto/720x405/147538426.webp?k=6eb9cdd141c753bc6adcb49ff07387dfa7b70000639c27436b8bc9a9c7692a91&o=") no-repeat center center;
+    background-size: cover;
+}
+
+.promoteThird .promoteItem:nth-child(3) {
+    background: url("https://cf.bstatic.com/xdata/images/xphoto/540x405/152666494.webp?k=a523440672208e1d89e5de7d6425728d56724d89bd9cddc90e52a00cae6e228f&o=") no-repeat center center;
+    background-size: cover;
+}
+
+.promoteHaft .promoteItem:nth-child(1) {
+    background: url("https://cf.bstatic.com/xdata/images/xphoto/540x405/156789523.webp?k=ec0307b716a87af1d7836429eeab634f736f2d05820b5fbbed391813169f80e6&o=") no-repeat center center;
+    background-size: cover;
+}
+
+.promoteHaft .promoteItem:nth-child(2) {
+    background: url("https://cf.bstatic.com/xdata/images/xphoto/540x405/125832682.webp?k=be9511d942c6be1e1a636a26ccb210b3708e133f93da53dae3753857c9fb5ae7&o=") no-repeat center center;
+    background-size: cover;
+}
+
+.promoteThird {
+    display: flex;
+    width: 100%;
+    height: 270px;
+
+    gap: 20px;
+}
+
+.proItemContent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    color: #fff;
+    padding: 12px;
+    width: 100%;
+
+
+    background: linear-gradient(to top,rgba(0,27,65,0.65) 0,rgba(0,27,65,0) 100%);
+
+    
+}
+
+.proItemContent h3 {
+    text-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+    font-size: 20px;
+}
+
+.proItemContent .promoteDesc {
+    font-size: 14px;
+    margin-top: 5px;
+    line-height: 1.5;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+}
