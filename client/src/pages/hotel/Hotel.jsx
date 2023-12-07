@@ -1,249 +1,154 @@
-import Header from '../../components/header/Header';
-import Navbar from '../../components/navbar/Navbar';
-import Footer from '../../components/footer/Footer';
-import MailList from '../../components/mailList/MailList';
-import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
-import { DateRange } from 'react-date-range';
-import { format } from 'date-fns';
-import './hotel.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faCalendar, faHeart, faLocationDot, faMagnifyingGlass, faQuestion, faShareNodes } from '@fortawesome/free-solid-svg-icons';
+import "./hotel.css";
+import Navbar from "../../components/navbar/Navbar";
+import Header from "../../components/header/Header";
+import MailList from "../../components/mailList/MailList";
+import Footer from "../../components/footer/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleArrowLeft,
+  faCircleArrowRight,
+  faCircleXmark,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
+import { useContext, useState } from "react";
+import useFetch from "../../hooks/useFetch";
+import { useLocation, useNavigate } from "react-router-dom";
+import { SearchContext } from "../../context/SearchContext";
+import { AuthContext } from "../../context/AuthContext";
+import Reserve from "../../components/reserve/Reserve";
 
 const Hotel = () => {
-  const [openStartDate, setOpenStartDate] = useState(false);
-  const [openOption, setOpenOption] = useState(false);
-  const [openEndDate, setOpenEndDate] = useState(false);
   const location = useLocation();
-  const [destination, setDestination] = useState(location.state.destination);
-  const [date, setDate] = useState(location.state.date);
-  const [options, setOptions] = useState(location.state.options);
+  const id = location.pathname.split("/")[2];
+  const [slideNumber, setSlideNumber] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
+  const { data, loading, error } = useFetch(`/hotels/find/${id}`);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
+  const { dates, options } = useContext(SearchContext);
 
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+  function dayDifference(date1, date2) {
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+    return diffDays;
+  }
 
-  const handleSub = (name) => {
-    setOptions(prev => { 
-        return {...prev, [name]: options[name] - 1}
-    });
+  const days = dayDifference(dates[0].endDate, dates[0].startDate);
+
+  const handleOpen = (i) => {
+    setSlideNumber(i);
+    setOpen(true);
   };
-  const handleAdd = (name) => {
-      setOptions(prev => { 
-          return {...prev, [name]: options[name] + 1}
-      });
+
+  const handleMove = (direction) => {
+    let newSlideNumber;
+
+    if (direction === "l") {
+      newSlideNumber = slideNumber === 0 ? 5 : slideNumber - 1;
+    } else {
+      newSlideNumber = slideNumber === 5 ? 0 : slideNumber + 1;
+    }
+
+    setSlideNumber(newSlideNumber);
   };
 
-  // const photos = [
-  //   {
-  //     src: "https://cf.bstatic.com/xdata/images/hotel/max500/349023670.jpg?k=8bca080ed4abb6c663726415174889c446943173e2ac6fa00b51458f28ba0fd1&o=&hp=1"
-  //   },
-  //   {
-  //     src: "https://cf.bstatic.com/xdata/images/hotel/max500/349023670.jpg?k=8bca080ed4abb6c663726415174889c446943173e2ac6fa00b51458f28ba0fd1&o=&hp=1"
-  //   },
-  //   {
-  //     src: "https://cf.bstatic.com/xdata/images/hotel/max500/349023670.jpg?k=8bca080ed4abb6c663726415174889c446943173e2ac6fa00b51458f28ba0fd1&o=&hp=1"
-  //   },
-  //   {
-  //     src: "https://cf.bstatic.com/xdata/images/hotel/max500/349023670.jpg?k=8bca080ed4abb6c663726415174889c446943173e2ac6fa00b51458f28ba0fd1&o=&hp=1"
-  //   },
-  //   {
-  //     src: "https://cf.bstatic.com/xdata/images/hotel/max500/349023670.jpg?k=8bca080ed4abb6c663726415174889c446943173e2ac6fa00b51458f28ba0fd1&o=&hp=1"
-  //   },
-  //   {
-  //     src: "https://cf.bstatic.com/xdata/images/hotel/max500/349023670.jpg?k=8bca080ed4abb6c663726415174889c446943173e2ac6fa00b51458f28ba0fd1&o=&hp=1"
-  //   }
-  // ];
+  const handleClick = () => {
+    if (user) {
+      setOpenModal(true);
+    } else {
+      navigate("/login");
+    }
+  };
   return (
-    <div className='hotel'>
+    <div>
       <Navbar />
-      <Header type='list' />
-      <div className="hotelContainer">
-        <div className="hotelWrapper">
-          <div className="hotelSearch">
-            <h1 className="htTitle">Search</h1>
-            <div className="htItem">
-              <label htmlFor="">Destination/property name:</label>
-              <div className="htInput">
-                <FontAwesomeIcon icon={faMagnifyingGlass} className="icon"/>
-                <input 
-                  type="text" 
-                  placeholder='Where are you going?'   
-                  value={destination} 
-                  onChange={e => setDestination(e.target.value)}
+      <Header type="list" />
+      {loading ? (
+        "loading"
+      ) : (
+        <div className="hotelContainer">
+          {open && (
+            <div className="slider">
+              <FontAwesomeIcon
+                icon={faCircleXmark}
+                className="close"
+                onClick={() => setOpen(false)}
+              />
+              <FontAwesomeIcon
+                icon={faCircleArrowLeft}
+                className="arrow"
+                onClick={() => handleMove("l")}
+              />
+              <div className="sliderWrapper">
+                <img
+                  src={data.photos[slideNumber]}
+                  alt=""
+                  className="sliderImg"
+                />
+              </div>
+              <FontAwesomeIcon
+                icon={faCircleArrowRight}
+                className="arrow"
+                onClick={() => handleMove("r")}
+              />
+            </div>
+          )}
+          <div className="hotelWrapper">
+            <button className="bookNow">Reserve or Book Now!</button>
+            <h1 className="hotelTitle">{data.name}</h1>
+            <div className="hotelAddress">
+              <FontAwesomeIcon icon={faLocationDot} />
+              <span>{data.address}</span>
+            </div>
+            <span className="hotelDistance">
+              Excellent location – {data.distance}m from center
+            </span>
+            <span className="hotelPriceHighlight">
+              Book a stay over ${data.cheapestPrice} at this property and get a
+              free airport taxi
+            </span>
+            <div className="hotelImages">
+              {data.photos?.map((photo, i) => (
+                <div className="hotelImgWrapper" key={i}>
+                  <img
+                    onClick={() => handleOpen(i)}
+                    src={photo}
+                    alt=""
+                    className="hotelImg"
                   />
-              </div>
+                </div>
+              ))}
             </div>
-            <label htmlFor="">Check-in date</label> 
-            <div className="htItem">
-              <div className="htDate" onClick={() => setOpenStartDate(!openStartDate)}>
-                <FontAwesomeIcon icon={faCalendar} className='icon'/>
+            <div className="hotelDetails">
+              <div className="hotelDetailsTexts">
+                <h1 className="hotelTitle">{data.title}</h1>
+                <p className="hotelDesc">{data.desc}</p>
+              </div>
+              <div className="hotelDetailsPrice">
+                <h1>Perfect for a {days}-night stay!</h1>
                 <span>
-                  {format(date[0].startDate,"MM/dd/yyyy")}
+                  Located in the real heart of Krakow, this property has an
+                  excellent location score of 9.8!
                 </span>
-                <FontAwesomeIcon icon={faAngleDown} className='htAngle'/>
-              </div>
-              
-            </div>
-            <label htmlFor="">Check-out date</label> 
-            <div className="htItem">
-              <div className="htDate" onClick={() => setOpenEndDate(!openEndDate)}>
-                <FontAwesomeIcon icon={faCalendar} className='icon'/>
-                <span>
-                  {format(date[0].endDate,"MM/dd/yyyy")}
-                </span>
-                <FontAwesomeIcon icon={faAngleDown} className='htAngle'/>
-              </div>
-              {((openStartDate && !openEndDate) || (!openStartDate && openEndDate))  && 
-                <DateRange
-                  onChange={item => setDate([item.selection])}
-                  minDate= {new Date()}
-                  moveRangeOnFirstSelection={false}
-                  className='calendarStart'
-                  ranges={date}
-              />}
-            </div>  
-            <div className="htItem">
-              <div className='htOptionItems' >
-                  <div className="htControl" onClick={() => setOpenOption(!openOption)}>
-                    <span>{options.adults} adults</span>
-                    <span>·</span>
-                    <span>{options.children} children</span>
-                    <span>·</span>
-                    <span>{options.room} room</span>
-                    <FontAwesomeIcon
-                        icon={faAngleDown}
-                        className='htAngleList'
-                    />
-                  </div>
-                  {openOption && <div className='htOptions'>
-                            <div className='htOptionItem'>
-                                <p>Adults</p>
-                                <div>
-                                    <button
-                                        disabled={options.adults <= 1}
-                                        className='sub'
-                                        onClick={()=> handleSub("adults")}>-</button>
-                                    <span>{options.adults}</span>
-                                    <button className='add' onClick={()=> handleAdd("adults")}>+</button>
-                                </div>
-                            </div>
-                            <div className='htOptionItem'>
-                                <p>Children</p>
-                                <div>
-                                    <button
-                                        disabled={options.children <= 0}
-                                        className='sub'
-                                        onClick={()=> handleSub("children")}>-</button>
-                                    <span>{options.children}</span>
-                                    <button className='add' onClick={()=> handleAdd("children")}>+</button>
-                                </div>
-                            </div>
-                            <div className='htOptionItem'>
-                                <p>Room</p>
-                                <div>
-                                    <button
-                                        disabled={options.room <= 1}
-                                        className='sub'
-                                        onClick={()=> handleSub("room")}>-</button>
-                                    <span>{options.room}</span>
-                                    <button className='add' onClick={()=> handleAdd("room")}>+</button>
-                                </div>
-                            </div>
-                        </div>}
-              </div>
-              </div>
-            <div className="htItem">
-              <div className="htWork">
-                <input type="checkbox"/>
-                <p>I'm traveling for work</p>
-                <FontAwesomeIcon icon={faQuestion} className='quesIcon'/>
-              </div>
-            </div>
-            <button className='htSearchBtn'>Search</button>
-          </div>
-          <div className="hotelContent">
-            <div className="hotelHeading">
-              <div>
-                <div className="hotelTitle">
-                  <span>Hotel</span>
-                  <h1>Vias Hotel Vung Tau</h1>
-                </div>
-                <div className="hotelLocation">
-                  <FontAwesomeIcon icon={faLocationDot} className='icon'/>
-                  <p className="hotelAddress">179 Thuy Van, Ward 8, Vung Tau, Vietnam</p>
-                  <span>-</span>
-                  <p className='showMap'>Great location - Show map</p>
-                </div>
-              </div>
-              <div className="hotelShare">
-                <FontAwesomeIcon icon={faHeart} className='heart'/>
-                <FontAwesomeIcon icon={faShareNodes} className='share' />
-                <button className="reserveBtn">Reserve</button>
-              </div>
-            </div>
-            <div className="hotelImg">
-              <div className="hotelImgTop">
-                <div className="img1">
-                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgTop' alt="" />
-                </div>
-                <div className="img2">
-                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgTop' alt="" />
-                </div>
-                <div className="img3">
-                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgTop' alt="" />
-                </div>
-              </div>
-              <div className='hotelImgBot'>
-                <div className="img4">
-                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgBot' alt="" />
-                </div>
-                <div className="img5">
-                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgBot' alt="" />
-                </div>
-                <div className="img6">
-                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgBot' alt="" />
-                </div>
-                <div className="img7">
-                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgBot' alt="" />
-                </div>
-                <div className="img8">
-                  <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/273683100.jpg?k=dea8e6c0cba6c5b00de2ffebf16d202fbab389942cff76544c56a3e270745ac9&o=&hp=1" className='imgBot' alt="" />
-                </div>
+                <h2>
+                  <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
+                  nights)
+                </h2>
+                <button onClick={handleClick}>Reserve or Book Now!</button>
               </div>
             </div>
           </div>
-
+          <MailList />
+          <Footer />
         </div>
-        <div className="hotelDesc">
-          <div className="htDetails">
-                <h2>Stay in the heart of Hiroshima</h2>
-                <p>You're eligible for a Genius discount at KOKO HOTEL Hiroshima Ekimae! To save at this property, all you have to do is sign in or register.
-                  Ideally set in the Hiroshima City Centre district of Hiroshima, KOKO HOTEL Hiroshima Ekimae is located a 5-minute walk from Myoei-ji Temple, half a kilometer from Chosho-in Temple and a 10-minute walk from Katō Tomosaburō Bronze Statue. With a restaurant, the 3-star hotel has air-conditioned rooms with free WiFi, each with a private bathroom. The property is 1.8 km from Atomic Bomb Dome and 1.8 km from Hiroshima Peace Memorial Park.<br/>
-                  All rooms in the hotel are equipped with a flat-screen TV and slippers.
-                  Guests at KOKO HOTEL Hiroshima Ekimae can enjoy an American or an Asian breakfast.<br/>
-                  Staff at the accommodation are available to give advice at the 24-hour front desk.<br/>
-                  Popular points of interest near KOKO HOTEL Hiroshima Ekimae include Hiroshima Danbara Shopping Centre, Hiroshima City Minami Ward Community Cultural Center and Hiroshima University Institute of Medical History. The nearest airport is Iwakuni Kintaikyo Airport, 33.8 km from the hotel.
-                  This is our guests' favorite part of Hiroshima, according to independent reviews.
-                  Couples in particular like the location – they rated it 8.8 for a two-person trip.
-                </p>
-                <span>KOKO HOTEL Hiroshima Ekimae has been welcoming Booking.com guests since Oct 20, 2020</span>
-          </div>
-          <div className="htHighlights">
-            <div className="box">
-              <h3>Property Highlights</h3>
-              <p>	Located in the heart of Hiroshima, this hotel has an excellent location score of 8.4</p>
-              <h4>Breakast info</h4>
-              <p>Asian, American</p>
-              <button>Reserve</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <MailList />
-      <div className="hotelContainer">
-        <Footer />
-      </div>
+      )}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
     </div>
-  )
-}
+  );
+};
+
+export default Hotel;

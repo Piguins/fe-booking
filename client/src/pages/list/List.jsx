@@ -1,179 +1,125 @@
-import './list.css';
-import Header from '../../components/header/Header';
-import Navbar from '../../components/navbar/Navbar';
-import SearchItem from '../../components/searchItem/SearchItem';
-import Footer from '../../components/footer/Footer';
-import MailList from '../../components/mailList/MailList';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { DateRange } from 'react-date-range';
-import { format } from 'date-fns'
-import 'react-date-range/dist/styles.css'; // main css file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faCalendar, faMagnifyingGlass, faQuestion } from '@fortawesome/free-solid-svg-icons';
+import "./list.css";
+import Navbar from "../../components/navbar/Navbar";
+import Header from "../../components/header/Header";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { format } from "date-fns";
+import { DateRange } from "react-date-range";
+import SearchItem from "../../components/searchItem/SearchItem";
+import useFetch from "../../hooks/useFetch";
 
 const List = () => {
-  const [openStartDate, setOpenStartDate] = useState(false);
-  const [openOption, setOpenOption] = useState(false);
-  const [openEndDate, setOpenEndDate] = useState(false);
   const location = useLocation();
   const [destination, setDestination] = useState(location.state.destination);
-  const [date, setDate] = useState(location.state.date);
+  const [dates, setDates] = useState(location.state.dates);
+  const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState(location.state.options);
+  const [min, setMin] = useState(undefined);
+  const [max, setMax] = useState(undefined);
 
+  const { data, loading, error, reFetch } = useFetch(
+    `/hotels?city=${destination}&min=${min || 0 }&max=${max || 999}`
+  );
 
-  const navigate = useNavigate();
-
-  const handleSearch = () => {
-    navigate("1", {
-      state: {
-        destination,
-        date,
-        options
-      }
-    })
-  }
-  const handleSub = (name) => {
-    setOptions(prev => { 
-        return {...prev, [name]: options[name] - 1}
-    });
-  };
-  const handleAdd = (name) => {
-      setOptions(prev => { 
-          return {...prev, [name]: options[name] + 1}
-      });
+  const handleClick = () => {
+    reFetch();
   };
 
   return (
     <div>
       <Navbar />
-      <Header type="list" />  
+      <Header type="list" />
       <div className="listContainer">
         <div className="listWrapper">
           <div className="listSearch">
             <h1 className="lsTitle">Search</h1>
             <div className="lsItem">
-              <label htmlFor="">Destination/property name:</label>
-              <div className="lsInput">
-                <FontAwesomeIcon icon={faMagnifyingGlass} className="icon"/>
-                <input 
-                  type="text" 
-                  placeholder='Where are you going?'   
-                  value={destination} 
-                  onChange={e => setDestination(e.target.value)}/>
-              </div>
+              <label>Destination</label>
+              <input placeholder={destination} type="text" />
             </div>
-
-
-            <label htmlFor="">Check-in date</label> 
             <div className="lsItem">
-              <div className="lsDate" onClick={() => setOpenStartDate(!openStartDate)}>
-                <FontAwesomeIcon icon={faCalendar} className='icon'/>
-                <span>
-                  {format(date[0].startDate,"MM/dd/yyyy")}
-                </span>
-                <FontAwesomeIcon icon={faAngleDown} className='angle'/>
-              </div>
-              
-            </div>
-            <label htmlFor="">Check-out date</label> 
-            <div className="lsItem">
-              <div className="lsDate" onClick={() => setOpenEndDate(!openEndDate)}>
-                <FontAwesomeIcon icon={faCalendar} className='icon'/>
-                <span>
-                  {format(date[0].endDate,"MM/dd/yyyy")}
-                </span>
-                <FontAwesomeIcon icon={faAngleDown} className='angle'/>
-              </div>
-              {((openStartDate && !openEndDate) || (!openStartDate && openEndDate))  && 
+              <label>Check-in Date</label>
+              <span onClick={() => setOpenDate(!openDate)}>{`${format(
+                dates[0].startDate,
+                "MM/dd/yyyy"
+              )} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
+              {openDate && (
                 <DateRange
-                  onChange={item => setDate([item.selection])}
-                  minDate= {new Date()}
-                  moveRangeOnFirstSelection={false}
-                  className='calendarEnd'
-                  ranges={date}
-              />}
-            </div>  
-            <div className="lsItem">
-              <div className='lsOptionItems' >
-                  <div className="lsControl" onClick={() => setOpenOption(!openOption)}>
-                    <span>{options.adults} adults</span>
-                    <span>·</span>
-                    <span>{options.children} children</span>
-                    <span>·</span>
-                    <span>{options.room} room</span>
-                    <FontAwesomeIcon
-                        icon={faAngleDown}
-                        className='angleList'
-                    />
-                  </div>
-                  {openOption && <div className='lsOptions'>
-                            <div className='lsOptionItem'>
-                                <p>Adults</p>
-                                <div>
-                                    <button
-                                        disabled={options.adults <= 1}
-                                        className='sub'
-                                        onClick={()=> handleSub("adults")}>-</button>
-                                    <span>{options.adults}</span>
-                                    <button className='add' onClick={()=> handleAdd("adults")}>+</button>
-                                </div>
-                            </div>
-                            <div className='lsOptionItem'>
-                                <p>Children</p>
-                                <div>
-                                    <button
-                                        disabled={options.children <= 0}
-                                        className='sub'
-                                        onClick={()=> handleSub("children")}>-</button>
-                                    <span>{options.children}</span>
-                                    <button className='add' onClick={()=> handleAdd("children")}>+</button>
-                                </div>
-                            </div>
-                            <div className='lsOptionItem'>
-                                <p>Room</p>
-                                <div>
-                                    <button
-                                        disabled={options.room <= 1}
-                                        className='sub'
-                                        onClick={()=> handleSub("room")}>-</button>
-                                    <span>{options.room}</span>
-                                    <button className='add' onClick={()=> handleAdd("room")}>+</button>
-                                </div>
-                            </div>
-                        </div>}
-              </div>
-
+                  onChange={(item) => setDates([item.selection])}
+                  minDate={new Date()}
+                  ranges={dates}
+                />
+              )}
             </div>
             <div className="lsItem">
-              <div className="lsWork">
-                <input type="checkbox"/>
-                <p>I'm traveling for work</p>
-                <FontAwesomeIcon icon={faQuestion} className='quesIcon'/>
+              <label>Options</label>
+              <div className="lsOptions">
+                <div className="lsOptionItem">
+                  <span className="lsOptionText">
+                    Min price <small>per night</small>
+                  </span>
+                  <input
+                    type="number"
+                    onChange={(e) => setMin(e.target.value)}
+                    className="lsOptionInput"
+                  />
+                </div>
+                <div className="lsOptionItem">
+                  <span className="lsOptionText">
+                    Max price <small>per night</small>
+                  </span>
+                  <input
+                    type="number"
+                    onChange={(e) => setMax(e.target.value)}
+                    className="lsOptionInput"
+                  />
+                </div>
+                <div className="lsOptionItem">
+                  <span className="lsOptionText">Adult</span>
+                  <input
+                    type="number"
+                    min={1}
+                    className="lsOptionInput"
+                    placeholder={options.adult}
+                  />
+                </div>
+                <div className="lsOptionItem">
+                  <span className="lsOptionText">Children</span>
+                  <input
+                    type="number"
+                    min={0}
+                    className="lsOptionInput"
+                    placeholder={options.children}
+                  />
+                </div>
+                <div className="lsOptionItem">
+                  <span className="lsOptionText">Room</span>
+                  <input
+                    type="number"
+                    min={1}
+                    className="lsOptionInput"
+                    placeholder={options.room}
+                  />
+                </div>
               </div>
             </div>
-            <button className='lsSearchBtn'>Search</button>
-
+            <button onClick={handleClick}>Search</button>
           </div>
           <div className="listResult">
-            <SearchItem handleClick={handleSearch} />
-            <SearchItem handleClick={handleSearch}/>
-            <SearchItem handleClick={handleSearch}/>
-            <SearchItem handleClick={handleSearch}/>
-            <SearchItem handleClick={handleSearch}/>
-            <SearchItem handleClick={handleSearch}/>
-            <SearchItem handleClick={handleSearch}/>
-            <SearchItem handleClick={handleSearch}/>
+            {loading ? (
+              "loading"
+            ) : (
+              <>
+                {data.map((item) => (
+                  <SearchItem item={item} key={item._id} />
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>
-      <MailList />
-      <div className="listContainer">
-        <Footer />
-      </div>
     </div>
-  )
-}
+  );
+};
 
-export default List
+export default List;

@@ -1,86 +1,29 @@
-.featured {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 1140px;
+.featured{
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  z-index: 1;
 }
 
-.featuredContainer {
-    width: 100% ;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    gap: 20px;
-
-    border-radius: 2px;
-
-
+.featuredItem{
+  position: relative;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 250px;
+  flex:1
 }
 
-.featuredHaft {
-    display: flex;
-    width: 100%;
-    height: 270px;
-
-    gap: 20px;
-
+.featuredImg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.featuredItem {
-    flex: 1;
-    position: relative;
-    border-radius: 2px;
-    overflow: hidden;
-
-
-}
-
-.featuredHaft .featuredItem:nth-child(1) {
-    background: url(https://cf.bstatic.com/xdata/images/city/540x270/786902.webp?k=f33ae62569a4a9b201fa4396df6f91410c4a1844c5e3fded5df30b7b917002b8&o=) no-repeat center center;
-    background-size: cover;
-}
-
-.featuredHaft .featuredItem:nth-child(2) {
-    background: url(https://cf.bstatic.com/xdata/images/city/540x270/688878.webp?k=f99bc5f3a6cfdbaacddae7ce5912f1aefc40e81ecfa99682b91177df1866b883&o=) no-repeat center center;
-    background-size: cover;
-}
-
-.featuredThird .featuredItem:nth-child(1) {
-    background: url(https://cf.bstatic.com/xdata/images/city/540x270/619746.webp?k=ff577d4b01bf1332a711e09ad9b320b516b4cbfca9122d20d9dfc6a6e3fab9d2&o=) no-repeat center center;
-    background-size: cover;
-}
-
-.featuredThird .featuredItem:nth-child(2) {
-    background: url(https://cf.bstatic.com/xdata/images/city/540x270/619697.webp?k=3344949371aed9d01bd069e27126715cee1ba9057871e5c07e145d41f7b89385&o=) no-repeat center center;
-    background-size: cover;
-}
-
-.featuredThird .featuredItem:nth-child(3) {
-    background: url(https://cf.bstatic.com/xdata/images/city/540x270/686019.webp?k=6a598e32da7c3ad489629acee666681c9b8d9096951bcea1c2bc645e87ef260f&o=) no-repeat center center;
-    background-size: cover;
-}
-
-.featuredThird {
-    display: flex;
-    width: 100%;
-    height: 270px;
-
-    gap: 20px;
-}
-
-.fItemContent {
-    position: absolute;
-    color: #fff;
-    padding: 12px;
-    width: 100%;
-
-    font-size: 22px;
-    background: linear-gradient(to bottom,rgba(0,27,65,0.65) 0,rgba(0,27,65,0) 100%);
-
-    
-}
-
-.fItemContent h2 {
-    text-shadow: 1px 1px 1px #000;
+.featuredTitles{
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
 }

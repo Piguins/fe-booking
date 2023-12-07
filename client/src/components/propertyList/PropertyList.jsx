@@ -1,40 +1,40 @@
-import './propertyList.css';
+import useFetch from "../../hooks/useFetch";
+import "./propertyList.css";
 
 const PropertyList = () => {
+  const { data, loading, error } = useFetch("/hotels/countByType");
+
+  const images = [
+    "https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
+    "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-apartments_300/9f60235dc09a3ac3f0a93adbc901c61ecd1ce72e.jpg",
+    "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_resorts/6f87c6143fbd51a0bb5d15ca3b9cf84211ab0884.jpg",
+    "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-villas_300/dd0d7f8202676306a661aa4f0cf1ffab31286211.jpg",
+    "https://cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-chalet_300/8ee014fcc493cb3334e25893a1dee8c6d36ed0ba.jpg",
+  ];
   return (
     <div className="pList">
-        <div className="pListContainer">
-            <div className="pItem">
-                <img className='pItemImg' src="https://q-xx.bstatic.com/xdata/images/xphoto/300x240/57584488.jpeg?k=d8d4706fc72ee789d870eb6b05c0e546fd4ad85d72a3af3e30fb80ca72f0ba57&o=" alt='' />
-                <div className="pItemContent">
-                    <h4 className="pItemTitle">Hotels</h4>
-                    <p className="pItemDes">111,232 hotels</p>
+      {loading ? (
+        "loading"
+      ) : (
+        <>
+          {data &&
+            images.map((img,i) => (
+              <div className="pListItem" key={i}>
+                <img
+                  src={img}
+                  alt=""
+                  className="pListImg"
+                />
+                <div className="pListTitles">
+                  <h1>{data[i]?.type}</h1>
+                  <h2>{data[i]?.count} {data[i]?.type}</h2>
                 </div>
-            </div>
-            <div className="pItem">
-                <img className='pItemImg' src="https://q-xx.bstatic.com/xdata/images/hotel/300x240/119467716.jpeg?k=f3c2c6271ab71513e044e48dfde378fcd6bb80cb893e39b9b78b33a60c0131c9&o=" alt='' />
-                <div className="pItemContent">
-                    <h4 className="pItemTitle">Apartments</h4>
-                    <p className="pItemDes">231,232 apartments</p>
-                </div>
-            </div>
-            <div className="pItem">
-                <img className='pItemImg' src="https://r-xx.bstatic.com/xdata/images/xphoto/300x240/45450084.jpeg?k=f8c2954e867a1dd4b479909c49528531dcfb676d8fbc0d60f51d7b51bb32d1d9&o=" alt='' />
-                <div className="pItemContent">
-                    <h4 className="pItemTitle">Resorts</h4>
-                    <p className="pItemDes">583,232 resorts</p>
-                </div>
-            </div>
-            <div className="pItem">
-                <img className='pItemImg' src="https://q-xx.bstatic.com/xdata/images/hotel/300x240/100235855.jpeg?k=5b6e6cff16cfd290e953768d63ee15f633b56348238a705c45759aa3a81ba82b&o=" alt='' />
-                <div className="pItemContent">
-                    <h4 className="pItemTitle">Villas</h4>
-                    <p className="pItemDes">111,232 villas</p>
-                </div>
-            </div>
-        </div>
+              </div>
+            ))}
+        </>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default PropertyList
+export default PropertyList;
