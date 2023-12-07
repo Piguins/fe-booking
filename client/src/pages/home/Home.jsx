@@ -1,33 +1,28 @@
-import Header from '../../components/header/Header';
-import Navbar from '../../components/navbar/Navbar';
-import Featured from '../../components/featured/Featured';
-import PropertyList from '../../components/propertyList/PropertyList';
-import Building from '../../components/building/Building';
-import MailList from '../../components/mailList/MailList';
-import Footer from '../../components/footer/Footer';
-import Promote from '../../components/promote/Promote';
-import './home.css'
-
+import Featured from "../../components/featured/Featured";
+import FeaturedProperties from "../../components/featuredProperties/FeaturedProperties";
+import Footer from "../../components/footer/Footer";
+import Header from "../../components/header/Header";
+import MailList from "../../components/mailList/MailList";
+import Navbar from "../../components/navbar/Navbar";
+import PropertyList from "../../components/propertyList/PropertyList";
+import "./home.css";
 
 const Home = () => {
-
   return (
     <div>
       <Navbar />
-      <Header />
+      <Header/>
       <div className="homeContainer">
-        <h2 className="title">Browse by property type</h2>
-        <PropertyList />
-        <Featured />
-        <h2 className="title">Get inspiration for your next trip</h2>
-        <Promote />
-        <h2 className="title">Homes guests love</h2>
-        <Building />
-        <MailList />
-        <Footer />
+        <Featured/>
+        <h1 className="homeTitle">Browse by property type</h1>
+        <PropertyList/>
+        <h1 className="homeTitle">Homes guests love</h1>
+        <FeaturedProperties/>
+        <MailList/>
+        <Footer/>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
