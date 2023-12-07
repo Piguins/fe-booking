@@ -1,0 +1,73 @@
+.footer {
+    width: 100%;
+    max-width: 1140px;
+    
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.footerContainer {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.footerNavigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigationList {
+    list-style: none;
+}
+
+.navigationList li {
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+    color: #0071c2;
+    line-height: 1.6;
+
+}
+
+.navigationList li:hover {
+    color: #bc5b01;
+}
+
+.extranet {
+    width: 100%;
+    text-align: center;
+    padding: 16px;
+    margin: 16px 0;
+
+    color: #6b6b6b;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.copyright {
+    width: 100%;
+    text-align: center;
+    margin: 16px 0;
+
+    font-size: 12px;
+    font-weight: 300;
+
+    cursor: pointer;
+}
+
+.priceLineTitle {
+    font-size: 13px;
+    text-align: center;
+    font-weight: 300;
+}
+
+.priceLineList {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin: 32px 100px;
+}
