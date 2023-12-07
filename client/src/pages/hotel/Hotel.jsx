@@ -102,3 +102,52 @@ const Hotel = () => {
                   ranges={date}
               />}
             </div>  
+            <div className="htItem">
+              <div className='htOptionItems' >
+                  <div className="htControl" onClick={() => setOpenOption(!openOption)}>
+                    <span>{options.adults} adults</span>
+                    <span>·</span>
+                    <span>{options.children} children</span>
+                    <span>·</span>
+                    <span>{options.room} room</span>
+                    <FontAwesomeIcon
+                        icon={faAngleDown}
+                        className='htAngleList'
+                    />
+                  </div>
+                  {openOption && <div className='htOptions'>
+                            <div className='htOptionItem'>
+                                <p>Adults</p>
+                                <div>
+                                    <button
+                                        disabled={options.adults <= 1}
+                                        className='sub'
+                                        onClick={()=> handleSub("adults")}>-</button>
+                                    <span>{options.adults}</span>
+                                    <button className='add' onClick={()=> handleAdd("adults")}>+</button>
+                                </div>
+                            </div>
+                            <div className='htOptionItem'>
+                                <p>Children</p>
+                                <div>
+                                    <button
+                                        disabled={options.children <= 0}
+                                        className='sub'
+                                        onClick={()=> handleSub("children")}>-</button>
+                                    <span>{options.children}</span>
+                                    <button className='add' onClick={()=> handleAdd("children")}>+</button>
+                                </div>
+                            </div>
+                            <div className='htOptionItem'>
+                                <p>Room</p>
+                                <div>
+                                    <button
+                                        disabled={options.room <= 1}
+                                        className='sub'
+                                        onClick={()=> handleSub("room")}>-</button>
+                                    <span>{options.room}</span>
+                                    <button className='add' onClick={()=> handleAdd("room")}>+</button>
+                                </div>
+                            </div>
+                        </div>}
+              </div>
