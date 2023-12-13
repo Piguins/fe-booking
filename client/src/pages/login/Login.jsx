@@ -51,9 +51,14 @@ const Login = () => {
           onChange={handleChange}
           className="lInput"
         />
-        <button disabled={loading} onClick={handleClick} className="lButton">
-          Login
-        </button>
+        <div className="registerButtons">
+          <button disabled={loading} onClick={handleClick} className="lButton">
+            Login
+          </button>
+          <div onClick={() => navigate("/register")} className="authNavigate">
+            Don't have an account?
+          </div>
+        </div>
         {error && <span>{error.message}</span>}
       </div>
     </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./register.css";
 
@@ -78,9 +78,14 @@ const Register = () => {
           onChange={handleChange}
           className="lInput"
         />
-        <button disabled={loading} onClick={handleClick} className="lButton">
-          Login
-        </button>
+        <div className="registerButtons">
+          <button disabled={loading} onClick={handleClick} className="lButton">
+            Register
+          </button>
+          <div onClick={() => navigate("/login")} className="authNavigate">
+            Already has an account?
+          </div>
+        </div>
         {error && <span>{error.message}</span>}
       </div>
     </div>

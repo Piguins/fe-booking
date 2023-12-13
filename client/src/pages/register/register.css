@@ -7,6 +7,7 @@
 
 .lContainer {
   display: flex;
+  min-width: 400px;
   flex-direction: column;
   gap: 10px;
 }
@@ -29,4 +30,15 @@
 .lButton:disabled {
   background-color: #0071c28c;
   cursor: not-allowed;
+}
+
+.registerButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.authNavigate {
+  cursor: pointer;
+  color: #0071c2;
 }
