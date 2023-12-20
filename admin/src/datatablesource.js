@@ -59,25 +59,40 @@ export const hotelColumns = [
 ];
 
 export const roomColumns = [
-  { field: "_id", headerName: "ID", width: 70 },
+  { field: "id", headerName: "ID", width: 70 },
   {
-    field: "title",
-    headerName: "Title",
+    field: "name",
+    headerName: "Name",
     width: 230,
   },
   {
-    field: "desc",
+    field: "description",
     headerName: "Description",
     width: 200,
   },
   {
-    field: "price",
+    field: "priceAmount",
     headerName: "Price",
     width: 100,
   },
   {
-    field: "maxPeople",
-    headerName: "Max People",
+    field: "priceCurrency",
+    headerName: "priceCurrency",
+    width: 100,
+  },
+  {
+    field: "isReserved",
+    headerName: "Reserved",
+    width: 100,
+  },
+  {
+    field: "floor",
+    headerName: "Floor",
+    width: 100,
+  },
+  {
+    field: "bedCount",
+    headerName: "Bed",
     width: 100,
   },
 ];

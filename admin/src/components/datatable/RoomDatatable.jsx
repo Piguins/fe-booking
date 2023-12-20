@@ -6,10 +6,19 @@ import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 
 const RoomDatatable = ({ columns }) => {
-  const [list, setList] = useState();
+  const [list, setList] = useState([]);
+  const [token, setToken] = useState(null);
   const { data, loading, error } = useFetch(
     "http://localhost:8080/api/rooms/get-all"
   );
+
+  useEffect(() => {
+    const storedAccessToken = localStorage.getItem("accessToken");
+
+    if (storedAccessToken) {
+      setToken(storedAccessToken);
+    }
+  }, []);
 
   useEffect(() => {
     setList(data);
@@ -17,8 +26,13 @@ const RoomDatatable = ({ columns }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/${id}`);
-      setList(list.filter((item) => item._id !== id));
+      await axios.delete(`http://localhost:8080/api/rooms/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setList(list.filter((item) => item.id !== id));
     } catch (err) {}
   };
 
@@ -35,7 +49,7 @@ const RoomDatatable = ({ columns }) => {
             </Link>
             <div
               className="deleteButton"
-              onClick={() => handleDelete(params.row._id)}
+              onClick={() => handleDelete(params.row.id)}
             >
               Delete
             </div>
@@ -59,7 +73,7 @@ const RoomDatatable = ({ columns }) => {
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
-        getRowId={(row) => row.roomId}
+        getRowId={(row) => row.id}
       />
     </div>
   );

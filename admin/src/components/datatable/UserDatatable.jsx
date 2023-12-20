@@ -9,17 +9,19 @@ import axios from "axios";
 const UserDatatable = ({ columns }) => {
   const [list, setList] = useState();
   const { data, loading, error } = useFetch(
-  "http://localhost:8080/api/users/get-all"
+    "http://localhost:8080/api/users/get-all"
   );
-  
+
   useEffect(() => {
     setList(data);
   }, [data]);
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/${id}`);
-      setList(list.filter((item) => item._id !== id));
+      // await axios.delete(`http/${id}`);
+      console.log(id);
+      console.log(list)
+      setList(list.filter((item) => item.userId !== id));
     } catch (err) {}
   };
 
@@ -36,7 +38,7 @@ const UserDatatable = ({ columns }) => {
             </Link>
             <div
               className="deleteButton"
-              onClick={() => handleDelete(params.row._id)}
+              onClick={() => handleDelete(params.row.userId)}
             >
               Delete
             </div>
@@ -49,7 +51,7 @@ const UserDatatable = ({ columns }) => {
     <div className="datatable">
       <div className="datatableTitle">
         User
-        <Link to={`/new`} className="link">
+        <Link to={`/users/new`} className="link">
           Add New
         </Link>
       </div>

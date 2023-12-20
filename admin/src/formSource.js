@@ -1,21 +1,9 @@
 export const userInputs = [
   {
-    id: "username",
-    label: "Username",
-    type: "text",
-    placeholder: "john_doe",
-  },
-  {
     id: "email",
     label: "Email",
     type: "email",
     placeholder: "john_doe@gmail.com",
-  },
-  {
-    id: "phone",
-    label: "Phone",
-    type: "text",
-    placeholder: "+1 234 567 89",
   },
   {
     id: "password",
@@ -23,16 +11,16 @@ export const userInputs = [
     type: "password",
   },
   {
-    id: "country",
-    label: "Country",
+    id: "firstName",
+    label: "First name",
     type: "text",
-    placeholder: "USA",
+    placeholder: "John",
   },
   {
-    id: "city",
-    label: "City",
+    id: "lastName",
+    label: "Last name",
     type: "text",
-    placeholder: "USA",
+    placeholder: "Doe",
   },
 ];
 
@@ -125,24 +113,36 @@ export const roomInputs = [
     id: "name",
     label: "Name",
     type: "text",
-    placeholder: "2 bed room",
+    placeholder: "Please enter room name",
   },
   {
-    id: "desc",
+    id: "description",
     label: "Description",
     type: "text",
-    placeholder: "King size bed, 1 bathroom",
+    placeholder: "Please enter room description",
   },
   {
-    id: "price",
+    id: "amount",
     label: "Price",
     type: "number",
-    placeholder: "100",
+    placeholder: "Please enter room price",
   },
   {
-    id: "maxPeople",
-    label: "Max People",
+    id: "bedCount",
+    label: "Bed",
     type: "number",
-    placeholder: "2",
+    placeholder: "Please enter number of bed",
+  },
+  {
+    id: "currency",
+    label: "Currency",
+    type: "string",
+    placeholder: "Please enter currency",
+  },
+  {
+    id: "floor",
+    label: "Floor",
+    type: "number",
+    placeholder: "Please enter floor",
   },
 ];

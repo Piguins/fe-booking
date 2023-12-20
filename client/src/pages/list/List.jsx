@@ -17,9 +17,14 @@ const List = () => {
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
 
+  // const { data, loading, error, reFetch } = useFetch(
+  //   `/hotels?city=${destination}&min=${min || 0 }&max=${max || 999}`
+  // );
+
   const { data, loading, error, reFetch } = useFetch(
-    `/hotels?city=${destination}&min=${min || 0 }&max=${max || 999}`
+    `http://localhost:8080/api/rooms/get-all?min=${min || 0}&max=${max || 9999999}`
   );
+  console.log(data);
 
   const handleClick = () => {
     reFetch();
@@ -33,10 +38,6 @@ const List = () => {
         <div className="listWrapper">
           <div className="listSearch">
             <h1 className="lsTitle">Search</h1>
-            <div className="lsItem">
-              <label>Destination</label>
-              <input placeholder={destination} type="text" />
-            </div>
             <div className="lsItem">
               <label>Check-in Date</label>
               <span onClick={() => setOpenDate(!openDate)}>{`${format(
@@ -74,33 +75,6 @@ const List = () => {
                     className="lsOptionInput"
                   />
                 </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">Adult</span>
-                  <input
-                    type="number"
-                    min={1}
-                    className="lsOptionInput"
-                    placeholder={options.adult}
-                  />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">Children</span>
-                  <input
-                    type="number"
-                    min={0}
-                    className="lsOptionInput"
-                    placeholder={options.children}
-                  />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">Room</span>
-                  <input
-                    type="number"
-                    min={1}
-                    className="lsOptionInput"
-                    placeholder={options.room}
-                  />
-                </div>
               </div>
             </div>
             <button onClick={handleClick}>Search</button>
@@ -111,7 +85,7 @@ const List = () => {
             ) : (
               <>
                 {data.map((item) => (
-                  <SearchItem item={item} key={item._id} />
+                  <SearchItem item={item} key={item.id} />
                 ))}
               </>
             )}

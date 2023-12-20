@@ -28,6 +28,7 @@ const Login = () => {
       );
       if (res.data.isHost) {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+        localStorage.setItem("accessToken", res.data.token);
 
         navigate("/");
       } else {
