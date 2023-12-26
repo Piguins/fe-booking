@@ -10,24 +10,62 @@ import {
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 import Reserve from "../../components/reserve/Reserve";
+import PaypalCheckoutButton from "../../components/PaypalCheckoutButton";
+import { format } from "date-fns";
+import { DateRange } from "react-date-range";
 
 const Hotel = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
-  console.log(id);
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  const [dates, setDates] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
   const [openModal, setOpenModal] = useState(false);
+  const [openDate, setOpenDate] = useState(false);
+  const [days, setDays] = useState(1);
 
   const { data, loading, error } = useFetch(
     `http://localhost:8080/api/rooms/${id}`
   );
+  const { priceAmount, priceCurrency } = data;
+  const [price, setPrice] = useState(priceAmount);
+
+  const { startDate, endDate } = dates[0];
+
+  useEffect(() => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (start > end) {
+      // Handle the case where endDate is before startDate, for example, set endDate to startDate
+      setDates([{ startDate: start, endDate: start, key: "selection" }]);
+    }
+
+    const timeDifference = end.getTime() - start.getTime();
+    const daysDifference = timeDifference / (1000 * 3600 * 24) || 1;
+
+    setDays(daysDifference);
+  }, [startDate, endDate]);
+
+  useEffect(() => {
+    setPrice(days * priceAmount);
+  }, [days, priceAmount]);
+
+  const product = {
+    ...data,
+  };
 
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -47,14 +85,6 @@ const Hotel = () => {
     }
 
     setSlideNumber(newSlideNumber);
-  };
-
-  const handleClick = () => {
-    if (user) {
-      setOpenModal(true);
-    } else {
-      navigate("/login");
-    }
   };
   return (
     <div>
@@ -131,7 +161,26 @@ const Hotel = () => {
                   {/* <b>${days * data.priceAmount * options.room}</b> ({days}{" "} */}
                   nights)
                 </h2>
-                <button onClick={handleClick}>Reserve or Book Now!</button>
+                {/* <button onClick={handleClick}>Reserve or Book Now!</button>
+                 */}
+                <div className="lsItem">
+                  <label>Check-in Date</label>
+                  <span onClick={() => setOpenDate(!openDate)}>{`${format(
+                    dates[0]?.startDate,
+                    "MM/dd/yyyy"
+                  )} to ${format(dates[0]?.endDate, "MM/dd/yyyy")}`}</span>
+                  {openDate && (
+                    <DateRange
+                      onChange={(item) => setDates([item.selection])}
+                      minDate={new Date()}
+                      ranges={dates}
+                    />
+                  )}
+                </div>
+                <p>
+                  {/* Total: {daysDifference * priceAmount} {priceCurrency} */}
+                </p>
+                <PaypalCheckoutButton product={product} dates={dates} />
               </div>
             </div>
           </div>

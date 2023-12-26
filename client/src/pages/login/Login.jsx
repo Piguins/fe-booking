@@ -26,7 +26,7 @@ const Login = () => {
         "http://localhost:8080/api/Auth/login",
         credentials
       );
-      console.log(res);
+      localStorage.setItem("authToken", res.data.token);
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
       navigate("/");
     } catch (err) {

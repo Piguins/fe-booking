@@ -33,7 +33,7 @@ const NewRoom = () => {
         ...info,
         bedCount: +info.bedCount,
         amount: +info.amount,
-        floor: +info.floor,
+        floor: info.floor,
         currency: info.currency.toUpperCase(),
         images: [...Object.values(images)],
       };

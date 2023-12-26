@@ -56,15 +56,17 @@ const Sidebar = () => {
               <span>Rooms</span>
             </li>
           </Link>
-          <li>
-            <SettingsApplicationsIcon className="icon" />
-            <span>Settings</span>
-          </li>
-          <p className="title">USER</p>
-          <li onClick={handleLogOut}>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
-          </li>
+          <Link to="/bookings" style={{ textDecoration: "none" }}>
+            <li>
+              <SettingsApplicationsIcon className="icon" />
+              <span>Bookings</span>
+            </li>
+            <p className="title">USER</p>
+            <li onClick={handleLogOut}>
+              <ExitToAppIcon className="icon" />
+              <span>Logout</span>
+            </li>{" "}
+          </Link>
         </ul>
       </div>
       <div className="bottom">

@@ -17,14 +17,17 @@ const List = () => {
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
 
+  console.log(dates);
+
   // const { data, loading, error, reFetch } = useFetch(
   //   `/hotels?city=${destination}&min=${min || 0 }&max=${max || 999}`
   // );
 
   const { data, loading, error, reFetch } = useFetch(
-    `http://localhost:8080/api/rooms/get-all?min=${min || 0}&max=${max || 9999999}`
+    `http://localhost:8080/api/rooms/get-all?min=${min || 0}&max=${
+      max || 9999999
+    }`
   );
-  console.log(data);
 
   const handleClick = () => {
     reFetch();

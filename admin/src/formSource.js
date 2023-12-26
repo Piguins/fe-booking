@@ -142,7 +142,7 @@ export const roomInputs = [
   {
     id: "floor",
     label: "Floor",
-    type: "number",
+    type: "string",
     placeholder: "Please enter floor",
   },
 ];

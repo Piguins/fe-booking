@@ -96,3 +96,37 @@ export const roomColumns = [
     width: 100,
   },
 ];
+
+export const bookingColumn = [
+  { field: "id", headerName: "ID", width: 250 },
+  {
+    field: "userId",
+    headerName: "USER ID",
+    width: 150,
+  },
+  {
+    field: "orderId",
+    headerName: "ORDER ID",
+    width: 100,
+  },
+  {
+    field: "fromDate",
+    headerName: "FROM DATE",
+    width: 230,
+  },
+  {
+    field: "toDate",
+    headerName: "TO DATE",
+    width: 100,
+  },
+  {
+    field: "bedCount",
+    headerName: "BED COUNT",
+    width: 100,
+  },
+  {
+    field: "floor",
+    headerName: "FLOOR",
+    width: 100,
+  },
+];
